@@ -1,4 +1,6 @@
 ﻿@page "/"
+@page "/{categoryURl}"
+@inject IProductService ProductService
 
 <PageTitle>Index</PageTitle>
 
@@ -10,3 +12,12 @@ Welcome to your new app.
 
 <ProductList></ProductList>
 
+@code {
+    [Parameter]
+    public string? categoryURL { get; set; } = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ProductService.GetProducts(categoryURL);
+    }
+}
