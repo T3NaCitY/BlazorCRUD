@@ -6,8 +6,11 @@ namespace BlazorCRUD.Client.Services.ProductService
     {
         event Action ProductsChanged;
         List<Product> Products { get; set; }
+        string message { get; set;}
         Task GetProducts(string? categoryURL = null);
 
         Task<ServiceResponse<Product>> GetProduct(int productId);
+        Task SearchProducts(string? searchText);
+        Task<List<string>> ProductSearchSuggestions(string searchText);
     }
 }

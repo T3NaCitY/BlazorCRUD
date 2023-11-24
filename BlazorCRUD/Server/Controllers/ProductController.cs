@@ -1,6 +1,4 @@
-﻿using BlazorCRUD.Server.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 
 namespace BlazorCRUD.Server.Controllers
@@ -17,10 +15,10 @@ namespace BlazorCRUD.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts() 
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
             var result = await _productService.GetProductAsync();
-        return Ok(result);
+            return Ok(result);
         }
 
         [HttpGet("{productId}")]
@@ -36,6 +34,20 @@ namespace BlazorCRUD.Server.Controllers
             return Ok(result);
         }
 
+        [HttpGet("search/{searchText}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> SearchProducts(string searchText)
+        {
+            var result = await _productService.SearchProducts(searchText);
+            return Ok(result);
+        }
+
+        [HttpGet("searchsuggestions/{searchText}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductSearchSuggestions(string searchText)
+        {
+            var result = await _productService.GetProductSearchSuggestions(searchText);
+            return Ok(result);
+        }
+
     }
-    
+
 }
