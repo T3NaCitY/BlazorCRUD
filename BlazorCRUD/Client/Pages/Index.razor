@@ -1,15 +1,18 @@
 ﻿@page "/"
 @page "/{categoryURl}"
-@page "/search/{searchText}"
+@page "/search/{searchText}/{page:int}"
 @inject IProductService ProductService
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@if(searchText == null && categoryURL == null)
+{
+    <FeaturedProducts></FeaturedProducts>
+}
+else
+{
+    <ProductList></ProductList>
+}
 
 <ProductList></ProductList>
 
@@ -20,12 +23,15 @@ Welcome to your new app.
     [Parameter]
     public string? searchText { get; set; } = null;
 
+    [Parameter]
+    public int Page { get; set; } = 1;
+
     protected override async Task OnParametersSetAsync()
     {
         await ProductService.GetProducts(categoryURL);
 
         if(searchText != null)
-             await ProductService.SearchProducts(searchText);
+             await ProductService.SearchProducts(searchText, Page);
         else
             await ProductService.GetProducts(categoryURL);
     }

@@ -6,8 +6,8 @@
 }
 
 .media-img-wrapper {
-    max_width:500px;
-    max_height:500px;
+    max-width:500px;
+    max-height:500px;
     text-align:center;
 }
 

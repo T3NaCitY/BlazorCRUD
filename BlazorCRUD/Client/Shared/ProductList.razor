@@ -1,6 +1,6 @@
 ﻿@inject IProductService ProductService
 @implements IDisposable
-<ul class="list-unstyled">
+
     
 
 @if(ProductService.Products == null || ProductService.Products.Count == 0)
@@ -9,8 +9,10 @@
     }
     else
     {
+    <ul class="list-unstyled">
         @foreach (var product in ProductService.Products)
         {
+        
             <li class="media my-3">
                 <div class="media-img-wrapper mr-2">
                     <a href="/product/@product.Id">
@@ -27,20 +29,26 @@
                 </div>
 
             </li>
+        
         }
+    </ul>
+        @for (int i = 1; i <= ProductService.pageCount; i++)
+        {
+        <a class="btn @(i == ProductService.currentPage ? "btn-info" : "btn-outline-info") page-selection" href="/search/@ProductService.LastSearchText/@i">@i</a>
+         }
     }
 
        
     
-</ul>
+
 
 
 @code {
 
     protected override void OnInitialized()
     {
-        ProductService.ProductsChanged += StateHasChanged;
 
+        ProductService.ProductsChanged += StateHasChanged;
 
     }
     public void Dispose()
