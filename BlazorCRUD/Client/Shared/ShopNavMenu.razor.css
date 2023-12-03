@@ -44,23 +44,23 @@
     color: white;
 }
 
-.flex-nav {
+.flex-nav div{
+    display: flex;
     flex-direction: column;
-    display: flex;  
 }
 
-@media (max-width: 641px) {
+@media (min-width: 641px) {
     .navbar-toggler, .navbar-toggler-wrapper {
         display: none;
     }
 
-    .flex-nav {
+    .flex-nav div{
+        display: flex;
         flex-direction: row;
-        
     }
 
     .collapse {
-        /* Never collapse the sidebar for wide screens */
+       
         display: block;
     }
 }

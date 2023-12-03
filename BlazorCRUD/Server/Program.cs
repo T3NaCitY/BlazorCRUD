@@ -3,6 +3,8 @@ global using Microsoft.EntityFrameworkCore;
 global using BlazorCRUD.Server.Data;
 global using BlazorCRUD.Server.Services.ProductService;
 global using BlazorCRUD.Server.Services.CategoryService;
+global using BlazorCRUD.Server.Services.CartService;
+global using BlazorCRUD.Server.Services.AuthService;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 var app = builder.Build();
 
 app.UseSwaggerUI();

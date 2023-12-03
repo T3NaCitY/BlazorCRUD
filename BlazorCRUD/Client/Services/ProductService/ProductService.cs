@@ -6,7 +6,6 @@ namespace BlazorCRUD.Client.Services.ProductService
     public class ProductService : IProductService
     {
         private readonly HttpClient _http;
-        private readonly object _lock = new object();
 
         public ProductService(HttpClient http)
         {
@@ -17,7 +16,7 @@ namespace BlazorCRUD.Client.Services.ProductService
         public string message { get; set; } = "Loading products...";
         public int currentPage { get; set; } = 1;
         public int pageCount { get; set; } = 0;
-        public string? LastSearchText { get; set; } = string.Empty;
+        public string LastSearchText { get; set; } = string.Empty;
 
         public event Action ProductsChanged;
 
@@ -51,7 +50,7 @@ namespace BlazorCRUD.Client.Services.ProductService
             return result.Data;
         }
 
-        public async Task SearchProducts(string? searchText, int page)
+        public async Task SearchProducts(string searchText, int page)
         {
             LastSearchText = searchText;
             var result = await _http.GetFromJsonAsync<ServiceResponse<ProductSearchResultResponse>>($"api/product/search/{searchText}/{page}");
