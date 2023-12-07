@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -108,8 +109,27 @@ namespace BlazorCRUD.Server.Services.AuthService
             var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
             return jwt;
         }
+
+        public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+        {
+            var user = await _Context.Users.FindAsync(userId);
+            if(user == null)
+            {
+                return new ServiceResponse<bool> { Success = false, Message = "User not found."};
+            }
+
+            createPasswordHash(newPassword, out byte[] PasswordHash, out byte[] PasswordSalt);
+
+            user.PasswordHash = PasswordHash;
+            user.PasswordSalt = PasswordSalt;
+
+            await _Context.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Data = true, Message = "Password has been changed." };
+        }
+
+
     }
 }

@@ -8,6 +8,8 @@
             _httpClient = http;
         }
 
+        
+
         public async Task<ServiceResponse<string>> Login(UserLogin request)
         {
             var result = await _httpClient.PostAsJsonAsync("api/auth/login", request);
