@@ -8,8 +8,10 @@ namespace BlazorCRUD.Shared
 {
     public class CartItem
     {
+        public int userId {  get; set; }
         public int ProductId { get; set; }
         public int ProductTypeId { get; set; }
         public int Quantity { get; set; } = 1;
     }
 }
+

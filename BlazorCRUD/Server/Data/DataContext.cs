@@ -9,6 +9,8 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CartItem>().HasKey(g => new {g.userId, g.ProductId, g.ProductTypeId });
+
             modelBuilder.Entity<ProductVariant>().HasKey(p => new { p.ProductId, p.ProductTypeId });
 
             modelBuilder.Entity<ProductType>().HasData(
@@ -276,5 +278,6 @@
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductVariant> ProductVariants { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }
