@@ -11,14 +11,14 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-nav">
         <div class="nav-item px-2">
-            <div>
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                Home
-            </NavLink>
+            <div style="margin-left:5px; margin-right:5px;">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    Home
+                 </NavLink>
             </div>
             @foreach (var category in CategoryService.Categories)
             {
-                <div class="nav-item px-2">
+                <div style="margin-left:5px; margin-right:5px;">
                     <NavLink class="nav-link" href="@category.Url">
                          @category.Name
                     </NavLink>

@@ -10,12 +10,16 @@ namespace BlazorCRUD.Server.Services.AuthService
     {
         private readonly DataContext _Context;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public AuthService(DataContext context, IConfiguration configuration)
+        public AuthService(DataContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
                 _Context = context;
             _configuration = configuration;
+            this.httpContextAccessor = httpContextAccessor;
         }
+
+        public int getUserId() => int.Parse(httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {
